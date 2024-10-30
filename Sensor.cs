@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Feleves
 { 
     public class Sensor
     {
         private Random Rnd = new Random();
+        private static int IdCounter = 0;
 
-        int Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje;
+        int Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje,Id;
         AllapotEnum Allapot;
 
         public Sensor(int homerseklet, int paratartalom, int tulfolyoTartalyVizszint, int folyovizSzintje, AllapotEnum allapot)
@@ -25,6 +27,9 @@ namespace Feleves
             ErtekValtozas();
             Allapot = allapot;
             ErtekValtozas();
+            Id = IdCounter++;
+            XMLKezelo placebo = new XMLKezelo(Id,Homerseklet,Paratartalom,TulfolyoTartalyVizszint,FolyovizSzintje,Allapot);
+            Program.Sensor_xml.Add(placebo);
         }
         public Sensor()
         {
@@ -33,6 +38,8 @@ namespace Feleves
             TulfolyoTartalyVizszint = Rnd.Next(0, 101);
             FolyovizSzintje = Rnd.Next(0, 101);
             Allapot = AllapotEnum.Mukodik;
+            Id = IdCounter++;
+            RandomSensorMegadás();
         }
 
         public delegate void Sensor_Delegate(string note);
@@ -42,5 +49,25 @@ namespace Feleves
         {
             if (ErtekValtozasEsemeny != null) ErtekValtozasEsemeny($"Érték megadás történt!");
         }
+
+        private void RandomSensorMegadás()
+        {
+            if (ErtekValtozasEsemeny != null) ErtekValtozasEsemeny($"Random Generált Szenzor lett kihelyezve");
+        }
+
+
+        /*
+         
+        XElement xdoc = XElement.Load("terem.xml");
+            foreach (var item in xdoc.Descendants("oneRoom"))
+            {
+                id = item.Attribute("id").Value;
+                width = Convert.ToInt32(item.Element("width").Value);
+                height = Convert.ToInt32(item.Element("height").Value);
+                Room seged = new Room(id, width, height);
+                rooms.Add(seged);
+            }
+         
+         */
     }
 }
