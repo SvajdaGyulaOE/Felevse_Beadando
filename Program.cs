@@ -1,4 +1,4 @@
-﻿namespace Felevse_Beadando
+﻿namespace Feleves
 {
     internal class Program
     {
