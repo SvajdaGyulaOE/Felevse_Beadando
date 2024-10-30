@@ -16,10 +16,15 @@ namespace Feleves
         public Sensor(int homerseklet, int paratartalom, int tulfolyoTartalyVizszint, int folyovizSzintje, AllapotEnum allapot)
         {
             Homerseklet = homerseklet;
+            ErtekValtozas();
             Paratartalom = paratartalom;
+            ErtekValtozas();
             TulfolyoTartalyVizszint = tulfolyoTartalyVizszint;
+            ErtekValtozas();
             FolyovizSzintje = folyovizSzintje;
+            ErtekValtozas();
             Allapot = allapot;
+            ErtekValtozas();
         }
         public Sensor()
         {
@@ -28,6 +33,14 @@ namespace Feleves
             TulfolyoTartalyVizszint = Rnd.Next(0, 101);
             FolyovizSzintje = Rnd.Next(0, 101);
             Allapot = AllapotEnum.Mukodik;
+        }
+
+        public delegate void Sensor_Delegate(string note);
+        public event Sensor_Delegate ErtekValtozasEsemeny;
+
+        private void ErtekValtozas()
+        {
+            if (ErtekValtozasEsemeny != null) ErtekValtozasEsemeny($"Érték megadás történt!");
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Feleves
 {
-    public enum AllapotEnum
+    public enum AllapotEnum //Állapotoknak a lehetőségei
     {
         Kikapcsolt,
         Mukodik,
