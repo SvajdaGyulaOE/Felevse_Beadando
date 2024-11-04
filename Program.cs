@@ -2,7 +2,7 @@
 
 namespace Feleves
 {
-    internal class Program
+    public class Program
     {
         static void EsemenyKezelo(string note) { Console.WriteLine(note); }
 
@@ -10,9 +10,15 @@ namespace Feleves
 
         static void Main(string[] args)
         {
+            int Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje, Id;
+            AllapotEnum Allapot;
+
             XElement XmlDoc = XElement.Load("Sensor_Xml.xml");
 
-
+            foreach (var item in XmlDoc.Descendants("Szenzor"))
+            {
+                Id = item.Attribute().Value;
+            }
 
             /*
             List < Room > rooms = new List<Room>();
