@@ -10,7 +10,7 @@ namespace Feleves
     public class Sensor
     {
         private Random Rnd = new Random();
-        private static int IdCounter = 0;
+        private static int IdCounter = 1;
 
         int Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje,Id;
         AllapotEnum Allapot;
@@ -40,6 +40,8 @@ namespace Feleves
             Allapot = AllapotEnum.Mukodik;
             Id = IdCounter++;
             RandomSensorMegadás();
+            XMLKezelo placebo = new XMLKezelo(Id, Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje, Allapot);
+            Program.Sensor_xml.Add(placebo);
         }
 
         public delegate void Sensor_Delegate(string note);
@@ -55,19 +57,7 @@ namespace Feleves
             if (ErtekValtozasEsemeny != null) ErtekValtozasEsemeny($"Random Generált Szenzor lett kihelyezve");
         }
 
-
-        /*
-         
-        XElement xdoc = XElement.Load("terem.xml");
-            foreach (var item in xdoc.Descendants("oneRoom"))
-            {
-                id = item.Attribute("id").Value;
-                width = Convert.ToInt32(item.Element("width").Value);
-                height = Convert.ToInt32(item.Element("height").Value);
-                Room seged = new Room(id, width, height);
-                rooms.Add(seged);
-            }
-         
-         */
+        //Delegált bekérése a ctor ban!
+     
     }
 }
