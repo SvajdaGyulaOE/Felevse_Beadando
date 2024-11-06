@@ -10,6 +10,9 @@ namespace Feleves
 
         public static List<XMLKezelo> Sensor_xml = new List<XMLKezelo>();
 
+        public static int KoordinataX, KoordinataY, KoordinataZ;
+        public static bool[,,] matrix;
+
         private static void XmlFeltolto()
         {
             XmlTextWriter writer = new XmlTextWriter("Sensor_Xml.xml", Encoding.UTF8);
@@ -31,30 +34,49 @@ namespace Feleves
 
             writer.Flush();
             writer.Close();
-        } //Látrehozza és feltölti az XML file-t
+        } //Létrehozza és feltölti az XML file-t
+        private static void Mennyiség()
+        {
+            do
+            {
+                Console.WriteLine("Mekkora legyen a koordináta rendszer X tengelyen?");
+                KoordinataX = int.Parse(Console.ReadLine());
+
+            } while (KoordinataX < 0);
+            do
+            {
+                Console.WriteLine("Mekkora legyen a koordináta rendszer Y tengelyen?");
+                KoordinataY = int.Parse(Console.ReadLine());
+
+            } while (KoordinataY < 0);
+            do
+            {
+                Console.WriteLine("Mekkora legyen a koordináta rendszer Z tengelyen?");
+                KoordinataZ = int.Parse(Console.ReadLine());
+
+            } while (KoordinataZ < 0);
+
+            matrix = new bool[KoordinataX, KoordinataY, KoordinataZ];
+
+            int placebo1;
+
+            do
+            {
+                Console.WriteLine("Hány darab random generált szenzort szeretne?");
+                placebo1 = int.Parse(Console.ReadLine());
+            } while (placebo1 > KoordinataX * KoordinataY * KoordinataZ);
+
+            Sensor.ErtekValtozasEsemeny += EsemenyKezelo;
+
+            for (int i = 0; i < placebo1; i++)
+            {
+                Sensor sensor = new Sensor();
+            }      
+        }
 
         static void Main(string[] args)
         {
-            Sensor sensor1 = new Sensor(13,23,5,11,AllapotEnum.Hibás);
-            sensor1.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor2 = new Sensor();
-            sensor2.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor3 = new Sensor();
-            sensor3.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor4 = new Sensor();
-            sensor4.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor5 = new Sensor();
-            sensor5.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor6 = new Sensor();
-            sensor6.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor7 = new Sensor();
-            sensor7.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor8 = new Sensor();
-            sensor8.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor9 = new Sensor();
-            sensor9.ErtekValtozasEsemeny += EsemenyKezelo;
-            Sensor sensor10 = new Sensor();
-            sensor10.ErtekValtozasEsemeny += EsemenyKezelo;
+            
 
             /*
             int Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje, Id;
@@ -74,14 +96,14 @@ namespace Feleves
                 {
 
                 }
-
             }
             */
 
-            Console.WriteLine("Hány darab random generált szenzort szeretne?");
+            
 
 
 
+            Mennyiség();
 
             XmlFeltolto();
 
