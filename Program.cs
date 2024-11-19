@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Xml;
+using Newtonsoft.Json;
 
 
 namespace Feleves
@@ -16,7 +17,7 @@ namespace Feleves
         private static void XmlFeltolto()
         {
             XmlTextWriter writer = new XmlTextWriter("Sensor_Xml.xml", Encoding.UTF8);
-            writer.Formatting = Formatting.Indented;
+            writer.Formatting = System.Xml.Formatting.Indented;
             writer.WriteStartDocument(true);
             writer.WriteStartElement("Szenzor");
 
@@ -34,6 +35,8 @@ namespace Feleves
 
             writer.Flush();
             writer.Close();
+
+            Console.WriteLine("Xml file, létrehozva!");
         } //Létrehozza és feltölti az XML file-t
         private static void Mennyiség()
         {
@@ -71,41 +74,24 @@ namespace Feleves
             for (int i = 0; i < placebo1; i++)
             {
                 Sensor sensor = new Sensor();
-            }      
-        }
+            }
+        } //Bekéri az a adatokat és megcsinálja a szenzorokat
+        private static void JsonFeltoltes()
+        {
+            string jsonString = JsonConvert.SerializeObject(Sensor_xml, Newtonsoft.Json.Formatting.Indented);
+
+            File.WriteAllText("Json_Text.txt", jsonString);
+
+            Console.WriteLine("Json file, létrelett hozva!");
+        } //Létrehozza és feltölti a Json file-t
 
         static void Main(string[] args)
         {
-            
-
-            /*
-            int Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje, Id;
-            AllapotEnum Allapot;
-
-            XElement XmlDoc = XElement.Load("Sensor_Xml.xml");
-
-            foreach (var item in XmlDoc.Descendants("Szenzor"))
-            {
-                Id = Convert.ToInt32(item.Attribute("id"));
-                Homerseklet = Convert.ToInt32(item.Element("Homerseklet"));
-                Paratartalom = Convert.ToInt32(item.Element("Paratartalom"));
-                TulfolyoTartalyVizszint = Convert.ToInt32(item.Element("TulfolyoTartalyVizszint"));
-                FolyovizSzintje = Convert.ToInt32(item.Element("FolyovizSzintje"));
-
-                if (item.Element("Allapot").Value == nameof(AllapotEnum.Kikapcsolt))
-                {
-
-                }
-            }
-            */
-
-            
-
-
-
             Mennyiség();
 
             XmlFeltolto();
+
+            JsonFeltoltes();
 
             Console.ReadKey();
         }
