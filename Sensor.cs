@@ -28,7 +28,7 @@ namespace Feleves
             ZKord = zKord;
             ErtekValtozas();
             Id = IdCounter++;
-            XMLKezelo placebo = new XMLKezelo(Id,Homerseklet,Paratartalom,TulfolyoTartalyVizszint,FolyovizSzintje,Allapot);
+            XMLKezelo placebo = new XMLKezelo(Id,Homerseklet,Paratartalom,TulfolyoTartalyVizszint,FolyovizSzintje,Allapot,XKord,YKord,ZKord);
             Program.Sensor_xml.Add(placebo);
         }
         public Sensor()
@@ -54,7 +54,7 @@ namespace Feleves
             Program.matrix[XKord - 1, YKord - 1, ZKord - 1] = true;
             
             RandomSensorMegadás();
-            XMLKezelo placebo = new XMLKezelo(Id, Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje, Allapot);
+            XMLKezelo placebo = new XMLKezelo(Id, Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje, Allapot, XKord, YKord, ZKord);
             Program.Sensor_xml.Add(placebo);
         }
 
