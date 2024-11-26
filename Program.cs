@@ -59,6 +59,12 @@ namespace Feleves
 
             } while (KoordinataZ < 0);
 
+            if (KoordinataX == 0 && KoordinataY == 00 && KoordinataZ == 0)
+            {
+                Console.WriteLine("Nem létező koordináta rendszert attál meg!");
+                Environment.Exit(0);
+            }
+
             matrix = new bool[KoordinataX, KoordinataY, KoordinataZ];
 
             int placebo1;
@@ -67,7 +73,13 @@ namespace Feleves
             {
                 Console.WriteLine("Hány darab random generált szenzort szeretne?");
                 placebo1 = int.Parse(Console.ReadLine());
-            } while (placebo1 > KoordinataX * KoordinataY * KoordinataZ);
+            } while (placebo1 > KoordinataX * KoordinataY * KoordinataZ || placebo1 < 0);
+
+            if (placebo1 == 0)
+            {
+                Console.WriteLine("Nem generáltattál le szenzorokat!");
+                Environment.Exit(0);
+            }
 
             Sensor.ErtekValtozasEsemeny += EsemenyKezelo;
 
@@ -75,7 +87,7 @@ namespace Feleves
             {
                 Sensor sensor = new Sensor();
             }
-        } //Bekéri az a adatokat és megcsinálja a szenzorokat       FORMAT EXCEPTION!!!
+        } //Bekéri az a adatokat és megcsinálja a szenzorokat       FORMAT EXCEPTION!!! OVERFLOW EXCEPTION!!!
         private static void JsonFeltoltes()
         {
             string jsonString = JsonConvert.SerializeObject(Sensor_xml, Newtonsoft.Json.Formatting.Indented);
@@ -87,13 +99,13 @@ namespace Feleves
         private static void MostmarmegcsinaltamSzovalBenneHagyom()
         {
 
-            Console.WriteLine("Melyik X pozicióhoz a legközelebbi kaka?");
+            Console.WriteLine("Melyik X pozicióhoz szeretné a legközelebbi szenzort lekérdezni?");
             int X_keres = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Melyik Y pozicióhoz a legközelebbi kaka?");
+            Console.WriteLine("Melyik Y pozicióhoz szeretné a legközelebbi szenzort lekérdezni?");
             int Y_keres = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Melyik Z pozicióhoz a legközelebbi kaka?");
+            Console.WriteLine("Melyik Z pozicióhoz szeretné a legközelebbi szenzort lekérdezni?");
             int Z_keres = int.Parse(Console.ReadLine());
 
             List<double> tavolsagok = new List<double>();
@@ -118,7 +130,7 @@ namespace Feleves
 
             #region LINQ
 
-            Console.WriteLine("\nHanyadik indexű szenzornak szeretnéd lekérdezni a hőmérsékletét?");
+            Console.WriteLine("\nHanyadik indexű szenzornak szeretnéd lekérdezni az adatait?");
             int index_of = int.Parse(Console.ReadLine());
 
             var lekerdezes1 = from elem in Sensor_xml
@@ -127,6 +139,53 @@ namespace Feleves
 
             foreach (var elem in lekerdezes1) Console.WriteLine(elem);
 
+            #region Hömérséklet lekérdezések
+
+            Console.WriteLine("\n\nLegnagyobb hőmérsékletű szenzor: ");
+
+            var lekerdezes2 = from elem in Sensor_xml
+                              orderby elem.Homerseklet descending
+                              select elem;
+
+            foreach (var elem in lekerdezes2) { Console.Write(elem.Id + " " + elem.Homerseklet); break; }
+
+            Console.WriteLine("\n\nLegkissebb hőmérsékletű szenzor: ");
+
+            var lekerdezes3 = from elem in Sensor_xml
+                              orderby elem.Homerseklet ascending
+                              select elem;
+
+            foreach (var elem in lekerdezes3) { Console.Write(elem.Id + " " + elem.Homerseklet); break; }
+
+            #endregion
+
+            #region Szenzor állapotok lekérdezése
+
+            Console.WriteLine("\n\nMűködő szenzorok: ");
+
+            IEnumerable<int> mukodoSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.Mukodik).Select(g => g.Id);
+
+            foreach (var elem in mukodoSzenzorok) { Console.Write(elem + ", "); }
+
+            Console.WriteLine("\n\nKikapcsolt szenzorok: ");
+
+            IEnumerable<int> kikapcsoltSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.Kikapcsolt).Select(g => g.Id);
+
+            foreach (var elem in kikapcsoltSzenzorok) { Console.Write(elem + ", "); }
+
+            Console.WriteLine("\n\nHibás szenzorok: ");
+
+            IEnumerable<int> HibasSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.Hibás).Select(g => g.Id);
+
+            foreach (var elem in HibasSzenzorok) { Console.Write(elem + ", "); }
+
+            Console.WriteLine("\n\nNem elérhető szenzorok: ");
+
+            IEnumerable<int> NemElerhetoSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.NemElerheto).Select(g => g.Id);
+
+            foreach (var elem in NemElerhetoSzenzorok) { Console.Write(elem + ", "); }
+
+            #endregion
 
             #endregion
 

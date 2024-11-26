@@ -53,7 +53,7 @@ namespace Feleves
 
         public override string ToString()
         {
-            return $"\nSzenzor id-je:\t{Id}\nHömérséklete:\t{Homerseklet}\nPáratartalma:\t{Paratartalom}\nTulfolyoTartalyVizszintje:\t{TulfolyoTartalyVizszint}\nFolyóvíz szintje:\t{FolyovizSzintje}\nÁllapota:\t{Allapot}\nKordinátája:\t{Xkord},{Ykord},{Zkord}";
+            return $"\nSzenzor id-je:\t{Id}\nHőmérséklete:\t{Homerseklet}\nPáratartalma:\t{Paratartalom}\nTulfolyotartaly vízszintje:\t{TulfolyoTartalyVizszint}\nFolyóvíz szintje:\t{FolyovizSzintje}\nÁllapota:\t{Allapot}\nKordinátája:\t{Xkord},{Ykord},{Zkord}";
         }
     }
 }

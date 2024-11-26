@@ -37,7 +37,8 @@ namespace Feleves
             Paratartalom = Rnd.Next(0,101);
             TulfolyoTartalyVizszint = Rnd.Next(0, 101);
             FolyovizSzintje = Rnd.Next(0, 101);
-            Allapot = AllapotEnum.Mukodik;
+            Allapot = (AllapotEnum)Rnd.Next(0, 4);
+
             Id = IdCounter++;
 
             int x = Program.KoordinataX;
