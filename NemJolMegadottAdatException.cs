@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Feleves
 {
-    internal class NemJolMegadottAdatException : Exception
+    public class NemJolMegadottAdatException : Exception
     {
         public NemJolMegadottAdatException() { }
     }

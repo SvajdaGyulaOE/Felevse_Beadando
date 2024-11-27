@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Feleves
 {
-    public class NincsSensorClusterException : Exception
+    public class NemLetezoKoordiantaRendszerException : Exception
     {
-        public NincsSensorClusterException() { }
+        public NemLetezoKoordiantaRendszerException()
+        {
+            
+        }
     }
 }

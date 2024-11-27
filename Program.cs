@@ -11,10 +11,10 @@ namespace Feleves
 
         public static List<XMLKezelo> Sensor_xml = new List<XMLKezelo>();
 
-        public static int KoordinataX, KoordinataY, KoordinataZ;
+        public static int KoordinataX, KoordinataY, KoordinataZ, SzenzorokSzama;
         public static bool[,,] matrix;
 
-        private static void XmlFeltolto()
+        public static void XmlFeltolto()
         {
             XmlTextWriter writer = new XmlTextWriter("Sensor_Xml.xml", Encoding.UTF8);
             writer.Formatting = System.Xml.Formatting.Indented;
@@ -38,57 +38,28 @@ namespace Feleves
 
             Console.WriteLine("Xml file, létrehozva!");
         } //Létrehozza és feltölti az XML file-t
-        private static void Mennyiség()
+        public static void Mennyiség()
         {
-            do
+            if (KoordinataX == 0 && KoordinataY == 0 && KoordinataZ == 0)
             {
-                Console.WriteLine("Mekkora legyen a koordináta rendszer X tengelyen?");
-                KoordinataX = int.Parse(Console.ReadLine());
-
-            } while (KoordinataX < 0);
-            do
-            {
-                Console.WriteLine("Mekkora legyen a koordináta rendszer Y tengelyen?");
-                KoordinataY = int.Parse(Console.ReadLine());
-
-            } while (KoordinataY < 0);
-            do
-            {
-                Console.WriteLine("Mekkora legyen a koordináta rendszer Z tengelyen?");
-                KoordinataZ = int.Parse(Console.ReadLine());
-
-            } while (KoordinataZ < 0);
-
-            if (KoordinataX == 0 && KoordinataY == 00 && KoordinataZ == 0)
-            {
-                Console.WriteLine("Nem létező koordináta rendszert attál meg!");
-                Environment.Exit(0);
+                //Console.WriteLine("Nem létező koordináta rendszert attál meg!");
+                throw new NemLetezoKoordiantaRendszerException();
             }
 
             matrix = new bool[KoordinataX, KoordinataY, KoordinataZ];
 
-            int placebo1;
-
-            do
+            if (SzenzorokSzama == 0)
             {
-                Console.WriteLine("Hány darab random generált szenzort szeretne?");
-                placebo1 = int.Parse(Console.ReadLine());
-            } while (placebo1 > KoordinataX * KoordinataY * KoordinataZ || placebo1 < 0);
-
-            if (placebo1 == 0)
-            {
-                Console.WriteLine("Nem generáltattál le szenzorokat!");
-                Environment.Exit(0);
+                //Console.WriteLine("Nem generáltattál le szenzorokat!");
+                throw new NemGenerelSzenzorokException();
             }
 
-            Sensor.ErtekValtozasEsemeny += EsemenyKezelo;
-
-            for (int i = 0; i < placebo1; i++)
+            for (int i = 0; i < SzenzorokSzama; i++)
             {
                 Sensor sensor = new Sensor();
             }
         } //Bekéri az a adatokat és megcsinálja a szenzorokat       FORMAT EXCEPTION!!! OVERFLOW EXCEPTION!!!
-        private static void JsonFeltoltes()
+        public static void JsonFeltoltes()
         {
             string jsonString = JsonConvert.SerializeObject(Sensor_xml, Newtonsoft.Json.Formatting.Indented);
 
@@ -96,7 +67,7 @@ namespace Feleves
 
             Console.WriteLine("Json file, létrelett hozva!");
         } //Létrehozza és feltölti a Json file-t
-        private static void MostmarmegcsinaltamSzovalBenneHagyom()
+        public static void MostmarmegcsinaltamSzovalBenneHagyom()
         {
 
             Console.WriteLine("Melyik X pozicióhoz szeretné a legközelebbi szenzort lekérdezni?");
@@ -120,6 +91,37 @@ namespace Feleves
 
         static void Main(string[] args)
         {
+            do
+            {
+                Console.WriteLine("Mekkora legyen a koordináta rendszer X tengelyen?");
+                KoordinataX = int.Parse(Console.ReadLine());
+
+            } while (KoordinataX < 0);
+            do
+            {
+                Console.WriteLine("Mekkora legyen a koordináta rendszer Y tengelyen?");
+                KoordinataY = int.Parse(Console.ReadLine());
+
+            } while (KoordinataY < 0);
+            do
+            {
+                Console.WriteLine("Mekkora legyen a koordináta rendszer Z tengelyen?");
+                KoordinataZ = int.Parse(Console.ReadLine());
+
+            } while (KoordinataZ < 0);
+            do
+            {
+                Console.WriteLine("Hány darab random generált szenzort szeretne?");
+                SzenzorokSzama = int.Parse(Console.ReadLine());
+            } while (SzenzorokSzama > KoordinataX * KoordinataY * KoordinataZ || SzenzorokSzama < 0);
+
+            Sensor.ErtekValtozasEsemeny += EsemenyKezelo;
+
+
+
+
+
+
             Mennyiség();
 
             XmlFeltolto();

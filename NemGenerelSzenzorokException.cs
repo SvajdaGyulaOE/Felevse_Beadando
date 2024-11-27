@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Feleves
 {
-    public class DLLDolgok
+    public class NemGenerelSzenzorokException : Exception
     {
-        //donno yet
-
+        public NemGenerelSzenzorokException()
+        {
+            
+        }
     }
 }
