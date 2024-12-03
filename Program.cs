@@ -54,6 +54,11 @@ namespace Feleves
                 throw new NemGenerelSzenzorokException();
             }
 
+            if ((SzenzorokSzama > KoordinataX * KoordinataY * KoordinataZ || SzenzorokSzama < 0))
+            {
+                throw new TulSokSzenzorException();
+            }
+
             for (int i = 0; i < SzenzorokSzama; i++)
             {
                 Sensor sensor = new Sensor();
