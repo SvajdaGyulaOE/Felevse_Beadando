@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Feleves
 {
-    internal class TulSokSzenzorException : Exception
+    public class TulSokSzenzorException : Exception
     {
         public TulSokSzenzorException()
         {

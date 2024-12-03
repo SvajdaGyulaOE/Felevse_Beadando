@@ -35,8 +35,6 @@ namespace Feleves
 
             writer.Flush();
             writer.Close();
-
-            Console.WriteLine("Xml file, létrehozva!");
         } //Létrehozza és feltölti az XML file-t
         public static void Mennyiség()
         {
@@ -70,7 +68,6 @@ namespace Feleves
 
             File.WriteAllText("Json_Text.txt", jsonString);
 
-            Console.WriteLine("Json file, létrelett hozva!");
         } //Létrehozza és feltölti a Json file-t
         public static void MostmarmegcsinaltamSzovalBenneHagyom()
         {
@@ -101,37 +98,36 @@ namespace Feleves
                 Console.WriteLine("Mekkora legyen a koordináta rendszer X tengelyen?");
                 KoordinataX = int.Parse(Console.ReadLine());
 
-            } while (KoordinataX < 0);
+            } while (KoordinataX < 1);
             do
             {
                 Console.WriteLine("Mekkora legyen a koordináta rendszer Y tengelyen?");
                 KoordinataY = int.Parse(Console.ReadLine());
 
-            } while (KoordinataY < 0);
+            } while (KoordinataY < 1);
             do
             {
                 Console.WriteLine("Mekkora legyen a koordináta rendszer Z tengelyen?");
                 KoordinataZ = int.Parse(Console.ReadLine());
 
-            } while (KoordinataZ < 0);
+            } while (KoordinataZ < 1);
             do
             {
                 Console.WriteLine("Hány darab random generált szenzort szeretne?");
                 SzenzorokSzama = int.Parse(Console.ReadLine());
-            } while (SzenzorokSzama > KoordinataX * KoordinataY * KoordinataZ || SzenzorokSzama < 0);
+            } while (SzenzorokSzama > KoordinataX * KoordinataY * KoordinataZ || SzenzorokSzama < 1);
 
             Sensor.ErtekValtozasEsemeny += EsemenyKezelo;
-
-
-
-
-
 
             Mennyiség();
 
             XmlFeltolto();
 
+            Console.WriteLine("Xml file, létrehozva!");
+
             JsonFeltoltes();
+
+            Console.WriteLine("Json file, létrelett hozva!");
 
             MostmarmegcsinaltamSzovalBenneHagyom();
 
