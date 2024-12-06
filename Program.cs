@@ -90,6 +90,31 @@ namespace Feleves
 
             Console.WriteLine("\nA legközelebbi szenzor az a " + Sensor_xml[tavolsagok.IndexOf(tavolsagok.Min())].Id + " id szenor.");
         } //Lekérdezi a legközelebbi senzort a megadott koordinátákhoz
+        public static XMLKezelo IndexVisszaado(int index)
+        {
+            IEnumerable<XMLKezelo> lekerdezes1 = from elem in Sensor_xml
+                              where elem.Id == index
+                              select elem;
+
+            return lekerdezes1.First();
+        }
+
+        public static XMLKezelo LegnagyobbHomerseklet()
+        {
+            IEnumerable<XMLKezelo> lekerdezes2 = from elem in Sensor_xml
+                              orderby elem.Homerseklet descending
+                              select elem;
+            return lekerdezes2.First();
+        }
+
+        public static XMLKezelo LegKissebbHomerseklet()
+        {
+            IEnumerable<XMLKezelo> lekerdezes3 = from elem in Sensor_xml
+                              orderby elem.Homerseklet ascending
+                              select elem;
+
+            return lekerdezes3.First();
+        }
 
         static void Main(string[] args)
         {
@@ -136,37 +161,21 @@ namespace Feleves
             Console.WriteLine("\nHanyadik indexű szenzornak szeretnéd lekérdezni az adatait?");
             int index_of = int.Parse(Console.ReadLine());
 
-            var lekerdezes1 = from elem in Sensor_xml
-                              where elem.Id == index_of
-                              select elem;
-
-            foreach (var elem in lekerdezes1) Console.WriteLine(elem);
-
-            #region Hömérséklet lekérdezések
+            Console.WriteLine(IndexVisszaado(index_of));
 
             Console.WriteLine("\n\nLegnagyobb hőmérsékletű szenzor: ");
 
-            var lekerdezes2 = from elem in Sensor_xml
-                              orderby elem.Homerseklet descending
-                              select elem;
-
-            foreach (var elem in lekerdezes2) { Console.Write(elem.Id + " " + elem.Homerseklet); break; }
+            Console.WriteLine(LegnagyobbHomerseklet());
 
             Console.WriteLine("\n\nLegkissebb hőmérsékletű szenzor: ");
 
-            var lekerdezes3 = from elem in Sensor_xml
-                              orderby elem.Homerseklet ascending
-                              select elem;
-
-            foreach (var elem in lekerdezes3) { Console.Write(elem.Id + " " + elem.Homerseklet); break; }
-
-            #endregion
+            Console.WriteLine(LegKissebbHomerseklet());
 
             #region Szenzor állapotok lekérdezése
 
             Console.WriteLine("\n\nMűködő szenzorok: ");
 
-            IEnumerable<int> mukodoSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.Mukodik).Select(g => g.Id);
+            IEnumerable<int> mukodoSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.Működik).Select(g => g.Id);
 
             foreach (var elem in mukodoSzenzorok) { Console.Write(elem + ", "); }
 
@@ -184,7 +193,7 @@ namespace Feleves
 
             Console.WriteLine("\n\nNem elérhető szenzorok: ");
 
-            IEnumerable<int> NemElerhetoSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.NemElerheto).Select(g => g.Id);
+            IEnumerable<int> NemElerhetoSzenzorok = Sensor_xml.Where(g => g.Allapot == AllapotEnum.NemElerhető).Select(g => g.Id);
 
             foreach (var elem in NemElerhetoSzenzorok) { Console.Write(elem + ", "); }
 

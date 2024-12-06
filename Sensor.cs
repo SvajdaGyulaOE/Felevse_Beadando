@@ -11,7 +11,7 @@ namespace Feleves
     public class Sensor
     {
         private Random Rnd = new Random();
-        private static int IdCounter = 1;
+        public static int IdCounter = 1;
 
         int Homerseklet, Paratartalom, TulfolyoTartalyVizszint, FolyovizSzintje, Id, XKord, YKord, ZKord;
         AllapotEnum Allapot;

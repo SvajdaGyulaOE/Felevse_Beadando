@@ -9,8 +9,8 @@ namespace Feleves
     public enum AllapotEnum //Állapotoknak a lehetőségei
     {
         Kikapcsolt,
-        Mukodik,
+        Működik,
         Hibás,
-        NemElerheto
+        NemElerhető
     }
 }
